@@ -37,23 +37,25 @@ impl XmlNode {
     }
 
     pub fn local_name(&self) -> &str {
-        match self.name.find(':') {
+        let not_space_trimed = match self.name.find(':') {
             Some(idx) => self.name.split_at(idx + 1).1,
             None => self.name.as_str(),
-        }
+        };
+        not_space_trimed.trim()
     }
 
     fn from_quick_xml_element(xml_element: &BytesStart<'_>) -> Result<Self, ::std::str::Utf8Error> {
-        let name = ::std::str::from_utf8(xml_element.name())?;
+        let name = ::std::str::from_utf8(xml_element.name().0)?;
         let mut node = Self::new(name);
 
-        for attr in xml_element.attributes() {
+        xml_element.attributes().try_for_each(|attr| -> Result<(), ::std::str::Utf8Error> {
             if let Ok(a) = attr {
-                let key_str = ::std::str::from_utf8(&a.key)?;
+                let key_str = ::std::str::from_utf8(a.key.0)?;
                 let value_str = ::std::str::from_utf8(&a.value)?;
                 node.attributes.insert(String::from(key_str), String::from(value_str));
             }
-        }
+            Ok(())
+        })?;
 
         Ok(node)
     }
@@ -65,16 +67,15 @@ impl XmlNode {
     ) -> Result<Vec<Self>, ::std::str::Utf8Error> {
         let mut child_nodes = Vec::new();
 
-        let mut buffer = Vec::new();
         loop {
-            match xml_reader.read_event(&mut buffer) {
+            match xml_reader.read_event() {
                 Ok(Event::Start(ref element)) => {
                     let mut node = Self::from_quick_xml_element(element)?;
                     node.child_nodes = Self::parse_child_elements(&mut node, element, xml_reader)?;
                     child_nodes.push(node);
                 }
                 Ok(Event::Text(text)) => {
-                    xml_node.text = text.unescape_and_decode(xml_reader).ok();
+                    xml_node.text = text.unescape().ok().map(|text| text.to_string());
                 }
                 Ok(Event::Empty(ref element)) => {
                     let node = Self::from_quick_xml_element(element)?;
@@ -90,8 +91,6 @@ impl XmlNode {
                 }
                 _ => (),
             }
-
-            buffer.clear();
         }
 
         Ok(child_nodes)
@@ -102,10 +101,9 @@ impl FromStr for XmlNode {
     type Err = InvalidXmlError;
 
     fn from_str(xml_string: &str) -> Result<Self, Self::Err> {
-        let mut xml_reader = Reader::from_str(xml_string.as_ref());
-        let mut buffer = Vec::new();
+        let mut xml_reader = Reader::from_str(xml_string);
         loop {
-            match xml_reader.read_event(&mut buffer) {
+            match xml_reader.read_event() {
                 Ok(Event::Start(ref element)) => {
                     let mut root_node = Self::from_quick_xml_element(element).map_err(|_| InvalidXmlError {})?;
                     root_node.child_nodes = Self::parse_child_elements(&mut root_node, element, &mut xml_reader)
@@ -116,7 +114,6 @@ impl FromStr for XmlNode {
                 _ => (),
             }
 
-            buffer.clear();
         }
 
         Err(InvalidXmlError {})

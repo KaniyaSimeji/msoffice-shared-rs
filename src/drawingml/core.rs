@@ -81,10 +81,7 @@ impl XsdChoice for AnimationGraphicalObjectBuildProperties {
     where
         T: AsRef<str>,
     {
-        match name.as_ref() {
-            "bldDgm" | "bldChart" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "bldDgm" | "bldChart")
     }
 }
 
@@ -188,10 +185,7 @@ impl XsdChoice for AnimationElementChoice {
     where
         T: AsRef<str>,
     {
-        match name.as_ref() {
-            "dgm" | "chart" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "dgm" | "chart")
     }
 }
 

@@ -550,10 +550,7 @@ impl XsdType for TextAutoFit {
 
 impl XsdChoice for TextAutoFit {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "noAutofit" | "normAutofit" | "spAutoFit" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "noAutofit" | "normAutofit" | "spAutoFit")
     }
 }
 

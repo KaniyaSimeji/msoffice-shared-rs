@@ -1072,13 +1072,39 @@ impl XsdChoice for Effect {
     where
         T: AsRef<str>,
     {
-        match name.as_ref() {
-            "cont" | "effect" | "alphaBiLevel" | "alphaCeiling" | "alphaFloor" | "alphaInv" | "alphaMod"
-            | "alphaModFix" | "alphaOutset" | "alphaRepl" | "biLevel" | "blend" | "blur" | "clrChange" | "clrRepl"
-            | "duotone" | "fill" | "fillOverlay" | "glow" | "grayscl" | "hsl" | "innerShdw" | "lum" | "outerShdw"
-            | "prstShdw" | "reflection" | "relOff" | "softEdge" | "tint" | "xfrm" => true,
-            _ => false,
-        }
+        matches!(
+            name.as_ref(),
+            "cont"
+                | "effect"
+                | "alphaBiLevel"
+                | "alphaCeiling"
+                | "alphaFloor"
+                | "alphaInv"
+                | "alphaMod"
+                | "alphaModFix"
+                | "alphaOutset"
+                | "alphaRepl"
+                | "biLevel"
+                | "blend"
+                | "blur"
+                | "clrChange"
+                | "clrRepl"
+                | "duotone"
+                | "fill"
+                | "fillOverlay"
+                | "glow"
+                | "grayscl"
+                | "hsl"
+                | "innerShdw"
+                | "lum"
+                | "outerShdw"
+                | "prstShdw"
+                | "reflection"
+                | "relOff"
+                | "softEdge"
+                | "tint"
+                | "xfrm"
+        )
     }
 }
 
@@ -1155,12 +1181,26 @@ impl XsdType for BlipEffect {
 
 impl XsdChoice for BlipEffect {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "alphaBiLevel" | "alphaCeiling" | "alphaFloor" | "alphaInv" | "alphaMod" | "alphaModFixed"
-            | "alphaRepl" | "biLevel" | "blur" | "clrChange" | "clrRepl" | "duotone" | "fillOverlay" | "grayscl"
-            | "hsl" | "lum" | "tint" => true,
-            _ => false,
-        }
+        matches!(
+            name.as_ref(),
+            "alphaBiLevel"
+                | "alphaCeiling"
+                | "alphaFloor"
+                | "alphaInv"
+                | "alphaMod"
+                | "alphaModFixed"
+                | "alphaRepl"
+                | "biLevel"
+                | "blur"
+                | "clrChange"
+                | "clrRepl"
+                | "duotone"
+                | "fillOverlay"
+                | "grayscl"
+                | "hsl"
+                | "lum"
+                | "tint"
+        )
     }
 }
 
@@ -1215,10 +1255,7 @@ impl XsdChoice for EffectProperties {
     where
         T: AsRef<str>,
     {
-        match name.as_ref() {
-            "effectLst" | "effectDag" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "effectLst" | "effectDag")
     }
 }
 
@@ -1703,10 +1740,7 @@ impl XsdType for ShadeProperties {
 
 impl XsdChoice for ShadeProperties {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "lin" | "path" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "lin" | "path")
     }
 }
 
@@ -1832,10 +1866,10 @@ impl XsdType for FillProperties {
 
 impl XsdChoice for FillProperties {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "noFill" | "solidFill" | "gradFill" | "blipFill" | "pattFill" | "grpFill" => true,
-            _ => false,
-        }
+        matches!(
+            name.as_ref(),
+            "noFill" | "solidFill" | "gradFill" | "blipFill" | "pattFill" | "grpFill",
+        )
     }
 }
 
@@ -1873,10 +1907,7 @@ impl XsdType for LineJoinProperties {
 
 impl XsdChoice for LineJoinProperties {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "round" | "bevel" | "miter" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "round" | "bevel" | "miter")
     }
 }
 
@@ -1991,10 +2022,7 @@ impl XsdType for FillModeProperties {
 
 impl XsdChoice for FillModeProperties {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "tile" | "stretch" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "tile" | "stretch")
     }
 }
 
@@ -2040,10 +2068,7 @@ impl XsdType for LineFillProperties {
 
 impl XsdChoice for LineFillProperties {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "noFill" | "solidFill" | "gradFill" | "pattFill" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "noFill" | "solidFill" | "gradFill" | "pattFill")
     }
 }
 
@@ -2059,10 +2084,7 @@ pub enum LineDashProperties {
 
 impl XsdChoice for LineDashProperties {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "prstDash" | "custDash" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "prstDash" | "custDash")
     }
 }
 

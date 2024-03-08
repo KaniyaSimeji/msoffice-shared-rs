@@ -471,12 +471,9 @@ impl XsdType for ColorTransform {
 
 impl XsdChoice for ColorTransform {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "tint" | "shade" | "comp" | "inv" | "gray" | "alpha" | "alphaOff" | "alphaMod" | "hue" | "hueOff"
+        matches!(name.as_ref(), "tint" | "shade" | "comp" | "inv" | "gray" | "alpha" | "alphaOff" | "alphaMod" | "hue" | "hueOff"
             | "hueMod" | "sat" | "satOff" | "satMod" | "lum" | "lumOff" | "lumMod" | "red" | "redOff" | "redMod"
-            | "green" | "greenOff" | "greenMod" | "blue" | "blueOff" | "blueMod" | "gamma" | "invGamma" => true,
-            _ => false,
-        }
+            | "green" | "greenOff" | "greenMod" | "blue" | "blueOff" | "blueMod" | "gamma" | "invGamma")
     }
 }
 
@@ -810,10 +807,7 @@ impl XsdType for Color {
 
 impl XsdChoice for Color {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "scrgbClr" | "srgbClr" | "hslClr" | "sysClr" | "schemeClr" | "prstClr" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "scrgbClr" | "srgbClr" | "hslClr" | "sysClr" | "schemeClr" | "prstClr")
     }
 }
 /// This element defines a custom color. The custom colors are used within a custom color list to define custom
@@ -876,9 +870,6 @@ impl XsdType for ColorMappingOverride {
 
 impl XsdChoice for ColorMappingOverride {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "masterClrMapping" | "overrideClrMapping" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "masterClrMapping" | "overrideClrMapping")
     }
 }

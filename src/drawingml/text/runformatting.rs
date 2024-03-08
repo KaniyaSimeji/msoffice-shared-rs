@@ -230,10 +230,7 @@ impl XsdType for TextRun {
 
 impl XsdChoice for TextRun {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "r" | "br" | "fld" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "r" | "br" | "fld")
     }
 }
 
@@ -364,10 +361,7 @@ impl XsdType for TextUnderlineLine {
 
 impl XsdChoice for TextUnderlineLine {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "uLnTx" | "uLn" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "uLnTx" | "uLn")
     }
 }
 
@@ -427,10 +421,7 @@ pub enum TextUnderlineFill {
 
 impl TextUnderlineFill {
     pub fn is_choice_member(name: &str) -> bool {
-        match name {
-            "uFillTx" | "uFill" => true,
-            _ => false,
-        }
+        matches!(name, "uFillTx" | "uFill")
     }
 
     pub fn from_xml_element(xml_node: &XmlNode) -> Result<Self> {

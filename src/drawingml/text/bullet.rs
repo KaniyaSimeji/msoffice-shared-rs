@@ -87,10 +87,7 @@ impl XsdType for TextBulletColor {
 
 impl XsdChoice for TextBulletColor {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "buClrTx" | "buClr" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "buClrTx" | "buClr")
     }
 }
 
@@ -201,13 +198,9 @@ impl XsdType for TextBulletSize {
 
 impl XsdChoice for TextBulletSize {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "buSzTx" | "buSzPct" | "buSzPts" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "buSzTx" | "buSzPct" | "buSzPts")
     }
 }
-
 #[derive(Debug, Clone, PartialEq)]
 pub enum TextBulletTypeface {
     /// This element specifies that the font of the bullets for a paragraph should be of the same font as the text run
@@ -272,10 +265,7 @@ impl XsdType for TextBulletTypeface {
 
 impl XsdChoice for TextBulletTypeface {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "buFontTx" | "buFont" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "buFontTx" | "buFont")
     }
 }
 
@@ -475,10 +465,7 @@ impl XsdType for TextBullet {
 
 impl XsdChoice for TextBullet {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "buNone" | "buAutoNum" | "buChar" | "buBlip" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "buNone" | "buAutoNum" | "buChar" | "buBlip")
     }
 }
 

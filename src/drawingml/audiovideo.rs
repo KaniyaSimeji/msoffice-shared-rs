@@ -410,9 +410,6 @@ impl XsdChoice for Media {
     where
         T: AsRef<str>,
     {
-        match name.as_ref() {
-            "audioCd" | "wavAudioFile" | "audioFile" | "videoFile" | "quickTimeFile" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "audioCd" | "wavAudioFile" | "audioFile" | "videoFile" | "quickTimeFile")
     }
 }

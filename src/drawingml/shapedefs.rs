@@ -290,10 +290,7 @@ impl XsdType for AdjustHandle {
 
 impl XsdChoice for AdjustHandle {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "ahXY" | "ahPolar" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "ahXY" | "ahPolar")
     }
 }
 
@@ -889,10 +886,7 @@ impl XsdChoice for Path2DCommand {
     where
         T: AsRef<str>,
     {
-        match name.as_ref() {
-            "close" | "moveTo" | "lnTo" | "arcTo" | "quadBezTo" | "cubicBezTo" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "close" | "moveTo" | "lnTo" | "arcTo" | "quadBezTo" | "cubicBezTo")
     }
 }
 
@@ -1209,10 +1203,7 @@ impl XsdType for Geometry {
 
 impl XsdChoice for Geometry {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "custGeom" | "prstGeom" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "custGeom" | "prstGeom")
     }
 }
 

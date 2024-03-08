@@ -1215,10 +1215,7 @@ impl XsdType for TextSpacing {
 
 impl XsdChoice for TextSpacing {
     fn is_choice_member<T: AsRef<str>>(name: T) -> bool {
-        match name.as_ref() {
-            "spcPct" | "spcPts" => true,
-            _ => false,
-        }
+        matches!(name.as_ref(), "spcPct" | "spcPts")
     }
 }
 
